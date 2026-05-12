@@ -1,16 +1,28 @@
-import Image from "next/image";
+import Greeting from "@/components/Greeting"
 
-export default function Home() {
-  
-  const name="Nelly"
-  const role = ".NET Developer Student"
+
+export default function Home(){
   return (
-    <main>  
-      <h1>Hej </h1>
-      <p>Välkommen till min app!</p>
-      <p>{role}</p>
+    <main>
+      <Greeting
+      name="Nelly"
+      role="Junior Dev"
+      />
     </main>
   )
+}
+
+// export default function Home() {
+  
+//   const name="Nelly"
+//   const role = ".NET Developer Student"
+//   return (
+//     <main>  
+//       <h1>Hej </h1>
+//       <p>Välkommen till min app!</p>
+//       <p>{role}</p>
+//     </main>
+//   )
 
 // export default function Home() {
 //   return (
@@ -74,4 +86,4 @@ export default function Home() {
 //       </main>
 //     </div>
 //   );
-}
+// }
