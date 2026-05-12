@@ -1,20 +1,65 @@
-// import Greeting from "@/components/Greeting"
-
 "use client"
 
 import {useState} from "react"
 
 export default function Home(){
-  const [count,setCount]  = useState(0)
+  const[name, setName] = useState("")
+  const[companyName, setCompanyName] = useState("")
 
-  return (
-    <main>
-      <h1>Counter: {count}</h1>
+  function handleSubmit(e: React.FormEvent){
+    e.preventDefault()
+alert(`Hello ${name} and ${companyName}`)
+  }
 
-      <button onClick={() => setCount(count+1)}>Click </button>
-    </main>
-  )
+return(
+<main>
+  <h1>Simple form</h1>
+
+  <form onSubmit={handleSubmit}>
+    <input 
+    type="text"
+    placeholder="Enter your name"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+     />
+
+     <input
+     type="text"
+     placeholder= "Enter your company"
+     value={companyName}
+     onChange={(e) => setCompanyName(e.target.value)}
+     />
+
+     <button type="submit">
+      Submit
+     </button>
+
+  </form>
+</main>
+
+
+)
+
 }
+
+
+// // import Greeting from "@/components/Greeting"
+
+// "use client"
+
+// import {useState} from "react"
+
+// export default function Home(){
+//   const [count,setCount]  = useState(0)
+
+//   return (
+//     <main>
+//       <h1>Counter: {count}</h1>
+
+//       <button onClick={() => setCount(count+1)}>Click </button>
+//     </main>
+//   )
+// }
 
 
 // export default function Home(){
