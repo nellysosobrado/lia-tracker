@@ -1,39 +1,55 @@
-import Greeting from "@/components/Greeting"
+// import Greeting from "@/components/Greeting"
 
+"use client"
+
+import {useState} from "react"
 
 export default function Home(){
-  const people= [
-    {
-      name: "Nelly",
-      role: "Junior Dev"
-    },
-    {
-      name: "Future Nelly",
-      role: "Senior Dev"
-    },
-    {
-      name: "Recruiter",
-      role:"Hopefully impressed"
-    },
-    {
-      name: "Backend Nelly",
-      role: "Likes c#"
-    }
-  ]
+  const [count,setCount]  = useState(0)
 
-  return(
+  return (
     <main>
-      {people.map((person) =>(
-<Greeting
-key={person.name}
-name={person.name}
-role={person.role}
-/>  
+      <h1>Counter: {count}</h1>
 
-      ))}
+      <button onClick={() => setCount(count+1)}>Click </button>
     </main>
   )
 }
+
+
+// export default function Home(){
+//   const people= [
+//     {
+//       name: "Nelly",
+//       role: "Junior Dev"
+//     },
+//     {
+//       name: "Future Nelly",
+//       role: "Senior Dev"
+//     },
+//     {
+//       name: "Recruiter",
+//       role:"Hopefully impressed"
+//     },
+//     {
+//       name: "Backend Nelly",
+//       role: "Likes c#"
+//     }
+//   ]
+
+//   return(
+//     <main>
+//       {people.map((person) =>(
+// <Greeting
+// key={person.name}
+// name={person.name}
+// role={person.role}
+// />  
+
+//       ))}
+//     </main>
+//   )
+// }
 
 // export default function Home(){
 //   return (
