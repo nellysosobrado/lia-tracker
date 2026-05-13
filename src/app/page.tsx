@@ -1,8 +1,10 @@
 "use client"
 
-import {useEffect, useState} from "react"
-import {supabase} from "../lib/supabase"
-import { error } from "console"
+// This is a client component, which means it will be rendered on the client side and can use React hooks and browser APIs. The "use client" directive is specific to Next.js 13 and indicates that this component should be treated as a client component.
+import { useEffect,useState}  from "react"
+import type {User } from "@supabase/supabase-js"
+import { supabase } from "../lib/supabase"
+
 
 type Company = {
   id: number
@@ -15,6 +17,7 @@ export default function Home(){
   const [name, setName] = useState("")
   const [industry, setIndustry] = useState("")
   const [editingId, setEditingId] = useState<number | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   async function loadCompanies(){
     const {data,error} = await supabase
@@ -29,7 +32,16 @@ export default function Home(){
     setCompanies(data)
   }
   useEffect(() => {
-    loadCompanies()
+    async function getUser(){
+      const {data } = await supabase. auth.getUser()
+      setUser(data.user)
+
+      if(data.user){
+        loadCompanies()
+      }
+    }
+    getUser()
+
   }, [] )
 
   async function handleSubmit(e: React.FormEvent){
@@ -103,12 +115,29 @@ async function deleteCompany(id: number){
           return
         }
 
-        alert("Logged in!")
+       
+
+        const{ data } = await supabase.auth.getUser()
+        setUser(data.user)
+        loadCompanies()
+
+         alert("Logged in!")
       }
 
 
 
-
+if(!user){
+  return(
+    <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+      <button 
+      onClick={signIn}
+      className="rounded-lg bg-green-600 px-5 py-3 font-semibold hover:bg-green-500">
+        Sign in to view companies
+      </button>
+    </main>
+  )
+  
+}
 return (
   <main className="min-h-screen bg-slate-950 text-white p-8">
     <div className="mx-auto max-w-3xl">
