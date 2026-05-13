@@ -2,6 +2,7 @@
 
 import {useEffect, useState} from "react"
 import {supabase} from "../lib/supabase"
+import { error } from "console"
 
 type Company = {
   id: number
@@ -48,9 +49,23 @@ export default function Home(){
     setName("")
     setIndustry("")
     loadCompanies() 
-
     
   }
+
+async function deleteCompany(id: number){
+        const { error } = await supabase
+        .from("companies")
+        .delete()
+        .eq("id",id)
+
+        if(error){
+          alert(error.message)
+          return
+        }
+        loadCompanies()
+
+      }
+
   return (
     <main>
       <h1> Companies</h1>
@@ -73,11 +88,15 @@ export default function Home(){
         <button type="submit"> Add company</button>
       </form>
 
+     
+
 
       {companies.map((company) => (
         <div key={company.id}>
           <h2>{company.name}</h2>
           <p>{company.industry}</p>
+
+          <button onClick={() => deleteCompany(company.id)}>Delete</button>
         </div>
       ) )}
     </main>
