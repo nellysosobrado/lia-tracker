@@ -1,46 +1,87 @@
 "use client"
 
-import {useState} from "react"
+import {useEffect, useState} from "react"
 
-export default function Home(){
-  const[name, setName] = useState("")
-  const[companyName, setCompanyName] = useState("")
-
-  function handleSubmit(e: React.FormEvent){
-    e.preventDefault()
-alert(`Hello ${name} and ${companyName}`)
-  }
-
-return(
-<main>
-  <h1>Simple form</h1>
-
-  <form onSubmit={handleSubmit}>
-    <input 
-    type="text"
-    placeholder="Enter your name"
-    value={name}
-    onChange={(e) => setName(e.target.value)}
-     />
-
-     <input
-     type="text"
-     placeholder= "Enter your company"
-     value={companyName}
-     onChange={(e) => setCompanyName(e.target.value)}
-     />
-
-     <button type="submit">
-      Submit
-     </button>
-
-  </form>
-</main>
-
-
-)
-
+type User ={
+  id: number
+  name: string 
+  email: string
 }
+
+export default function Home() {
+  const [users,setUsers] = useState<User[]>([])
+
+  useEffect(() => {
+    async function loadUsers(){
+      const response = await fetch("https://jsonplaceholder.typicode.com/users")
+      const data = await response.json()
+      setUsers(data)
+    }
+
+    loadUsers()
+  }, [])
+
+  return (
+    <main>
+      <h1>Users</h1>
+
+      {users.map((user)  => (
+        <div key={user.id}>
+          <h2>{user.name}</h2>
+          <p>{user.email} </p>
+        </div>
+      )
+
+      )}
+    </main>
+  )
+
+  
+}
+
+// "use client"
+
+// import {useState} from "react"
+
+// export default function Home(){
+//   const[name, setName] = useState("")
+//   const[companyName, setCompanyName] = useState("")
+
+//   function handleSubmit(e: React.FormEvent){
+//     e.preventDefault()
+// alert(`Hello ${name} and ${companyName}`)
+//   }
+
+// return(
+// <main>
+//   <h1>Simple form</h1>
+
+//   <form onSubmit={handleSubmit}>
+//     <input 
+//     type="text"
+//     placeholder="Enter your name"
+//     value={name}
+//     onChange={(e) => setName(e.target.value)}
+//      />
+
+//      <input
+//      type="text"
+//      placeholder= "Enter your company"
+//      value={companyName}
+//      onChange={(e) => setCompanyName(e.target.value)}
+//      />
+
+//      <button type="submit">
+//       Submit
+//      </button>
+
+//   </form>
+// </main>
+
+
+// )
+
+// }
 
 
 // // import Greeting from "@/components/Greeting"
