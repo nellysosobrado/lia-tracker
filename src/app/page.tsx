@@ -92,14 +92,37 @@ async function deleteCompany(id: number){
         setName(company.name)
         setIndustry(company.industry)
       }
+      async function signIn() {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: "nelly.sosobrado@gmail.com",
+          password: "Password123!",
+        })
+
+        if (error) {
+          alert(error.message)
+          return
+        }
+
+        alert("Logged in!")
+      }
+
+
+
+
 return (
   <main className="min-h-screen bg-slate-950 text-white p-8">
     <div className="mx-auto max-w-3xl">
       <section className="mb-8">
         <h1 className="text-4xl font-bold">Company Tracker</h1>
-        <p className="mt-2 text-slate-400">
-          A small Next.js + Supabase CRUD app for learning the stack.
-        </p>
+
+        <button 
+        // onClick={signUp} 
+        onClick={signIn}
+        className="mt-4 rounded-lg bg-green-600 px-5 py-3 font-semibold hover:bg-green-500">
+          Test Sign in
+        </button>
+
+
       </section>
 
       <form
